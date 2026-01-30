@@ -63,7 +63,7 @@ export * from "./enums";
 ## Installation
 
 ```bash
-pip install django-ts-constants
+pip install django-ts
 ```
 
 Add to `INSTALLED_APPS`:
@@ -115,8 +115,8 @@ If someone updates a Django constant but forgets to regenerate the TypeScript fi
 ## Development
 
 ```bash
-git clone https://github.com/regiscamimura/django-ts-constants
-cd django-ts-constants
+git clone https://github.com/regiscamimura/django-ts 
+cd django-ts
 
 # Setup
 uv venv && uv pip install -e ".[dev]"
