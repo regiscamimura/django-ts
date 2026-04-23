@@ -3,6 +3,7 @@ DEBUG = True
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.auth",
+    "django_ts_constants",
 ]
 DATABASES = {
     "default": {

@@ -266,12 +266,16 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f"Updated: {', '.join(changed)}"))
 
     def _is_project_app(self, app_config: "AppConfig") -> bool:
+        app_path = Path(app_config.path)
+        if "site-packages" in app_path.parts:
+            return False
+
         base_dir = getattr(settings, "BASE_DIR", None)
         if base_dir is None:
             return True
 
         try:
-            Path(app_config.path).relative_to(base_dir)
+            app_path.relative_to(base_dir)
             return True
         except ValueError:
             return False

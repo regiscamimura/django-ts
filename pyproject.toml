@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "django-ts"
-version = "0.1.2"
+version = "0.1.4"
 description = "Generate TypeScript constants and enums from Django model"
 readme = "README.md"
 license = "MIT"
@@ -52,7 +52,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/django_ts_constants"]
+packages = ["django_ts_constants"]
 
 [tool.ruff]
 line-length = 88

@@ -1,4 +1,14 @@
-from synctypes import EnumMember, ModelExtractor, ModelTypes, TypeScriptWriter
+from types import SimpleNamespace
+
+from django.test import override_settings
+
+from django_ts_constants.management.commands.synctypes import (
+    Command,
+    EnumMember,
+    ModelExtractor,
+    ModelTypes,
+    TypeScriptWriter,
+)
 
 
 class TestModelTypes:
@@ -201,3 +211,26 @@ class TestTypeScriptWriter:
         assert any("constants.ts" in p for p in changed)
         assert any("enums.ts" in p for p in changed)
         assert any("index.ts" in p for p in changed)
+
+
+class TestIsProjectApp:
+    def setup_method(self):
+        self.command = Command()
+
+    def test_rejects_site_packages_even_under_base_dir(self, tmp_path):
+        venv_app = tmp_path / ".venv/lib/python3.13/site-packages/thirdparty_app"
+        app_config = SimpleNamespace(path=str(venv_app))
+        with override_settings(BASE_DIR=str(tmp_path)):
+            assert self.command._is_project_app(app_config) is False
+
+    def test_accepts_project_app_under_base_dir(self, tmp_path):
+        project_app = tmp_path / "apps/orders"
+        app_config = SimpleNamespace(path=str(project_app))
+        with override_settings(BASE_DIR=str(tmp_path)):
+            assert self.command._is_project_app(app_config) is True
+
+    def test_rejects_path_outside_base_dir(self, tmp_path):
+        outside_app = tmp_path.parent / "elsewhere/some_app"
+        app_config = SimpleNamespace(path=str(outside_app))
+        with override_settings(BASE_DIR=str(tmp_path)):
+            assert self.command._is_project_app(app_config) is False
