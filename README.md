@@ -134,4 +134,4 @@ MIT
 
 ---
 
-Built by [Regis Camimura](https://github.com/regiscamimura)
+Built by [Regis Camimura](https://github.com/regiscamimura), based on [Steve Lacey's](https://github.com/stevelacey) code.
